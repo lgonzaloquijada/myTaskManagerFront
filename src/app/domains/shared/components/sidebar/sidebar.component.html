@@ -1,0 +1,17 @@
+<div class="w-full h-full back bg-gray-900">
+  <ul class="py-5">
+    <li class="hover:bg-gray-400">
+      <a
+        class="flex space-x-2 items-center cursor-pointer py-2"
+        [ngClass]="{ 'px-3': sidebarOpen(), 'px-1': !sidebarOpen() }"
+      >
+        <i class="text-white bg-blue-300 rounded-full py-2 px-1 text-xs"
+          >icon</i
+        >
+        @if (sidebarOpen()) {
+        <span class="text-white font-bold">Users</span>
+        }
+      </a>
+    </li>
+  </ul>
+</div>
