@@ -3,7 +3,7 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class LayoutService {
+export class AppService {
   sidebarOpen: WritableSignal<boolean> = signal(true);
 
   constructor() {}

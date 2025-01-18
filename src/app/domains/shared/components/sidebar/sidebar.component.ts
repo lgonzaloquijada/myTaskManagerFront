@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { LayoutService } from '../../services/layout.service';
 import { CommonModule } from '@angular/common';
+import { AppService } from '../../../../services/app.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,6 +9,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  private layoutService = inject(LayoutService);
-  sidebarOpen = this.layoutService.sidebarOpen;
+  private appService = inject(AppService);
+  sidebarOpen = this.appService.sidebarOpen;
 }

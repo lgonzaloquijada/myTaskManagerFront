@@ -1,0 +1,35 @@
+<div class="container mt-5 text-left">
+  <table class="table w-full">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users(); track $index) {
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td class="space-x-1">
+          <button
+            class="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-700"
+            (click)="editUser(user)"
+          >
+            Edit
+          </button>
+          <button
+            class="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-700"
+            (click)="deleteUser(user)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
