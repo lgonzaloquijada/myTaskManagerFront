@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
-import { LayoutService } from '../../services/layout.service';
+import { AppService } from '../../../../services/app.service';
 
 @Component({
   selector: 'app-layout',
@@ -12,10 +12,10 @@ import { LayoutService } from '../../services/layout.service';
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
-  private layoutService = inject(LayoutService);
-  sidebarOpen = this.layoutService.sidebarOpen;
+  private appService = inject(AppService);
+  sidebarOpen = this.appService.sidebarOpen;
 
   toogleSideBar() {
-    this.layoutService.toogleSidebar();
+    this.appService.toogleSidebar();
   }
 }
