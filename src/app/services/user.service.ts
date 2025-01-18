@@ -11,9 +11,7 @@ export class UserService {
 
   users: WritableSignal<User[]> = signal([]);
 
-  constructor() {
-    this.fetchUsers();
-  }
+  constructor() {}
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>('http://localhost:5122/api/user');
