@@ -4,24 +4,22 @@ import { User } from '@models/user.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '@domains/shared/components/confirm-dialog/confirm-dialog.component';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-user-table',
-  imports: [MatIconModule],
+  imports: [MatIconModule, RouterLink],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.scss',
 })
 export class UserTableComponent {
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   users: WritableSignal<User[]> = this.userService.users;
 
   constructor() {}
-
-  editUser(user: User) {
-    console.log('Edit user');
-  }
 
   deleteUser(user: User) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

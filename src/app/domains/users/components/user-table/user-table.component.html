@@ -17,7 +17,7 @@
         <td class="space-x-1 flex py-1">
           <button
             class="flex items-center justify-center space-x-1 bg-blue-500 text-white rounded pl-1 pr-3 py-1 hover:bg-blue-700"
-            (click)="editUser(user)"
+            [routerLink]="['/users', user.id, 'edit']"
           >
             <mat-icon
               fontIcon="edit"

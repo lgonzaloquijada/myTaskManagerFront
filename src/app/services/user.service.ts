@@ -42,4 +42,19 @@ export class UserService {
       })
     );
   }
+
+  getUser(id: number): Observable<User> {
+    return this.http.get<User>(`${this.api}/user/${id}`);
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(`${this.api}/user`, user).pipe(
+      tap((user) => {
+        this.users.update((users) =>
+          users.map((u) => (u.id === user.id ? user : u))
+        );
+        return user;
+      })
+    );
+  }
 }
