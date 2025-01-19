@@ -1,4 +1,10 @@
-import { Component, inject, WritableSignal } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  OnInit,
+  WritableSignal,
+} from '@angular/core';
 import { UserService } from '@services/user.service';
 import { User } from '@models/user.model';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,14 +20,33 @@ import { MatChipsModule } from '@angular/material/chips';
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.scss',
 })
-export class UserTableComponent {
+export class UserTableComponent implements OnInit {
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
   users: WritableSignal<User[]> = this.userService.users;
+  errorFetchingUsers: WritableSignal<boolean> =
+    this.userService.errorFetchingUsers;
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      console.log('error fetching users changed');
+      if (this.errorFetchingUsers()) {
+        this.snackBar.open('Error fetching users', 'Dismiss', {
+          duration: 2000,
+          panelClass: 'snack-bar-error',
+        });
+      }
+    });
+
+    effect(() => {
+      const users = this.userService.users();
+      console.log('users changed');
+    });
+  }
+
+  ngOnInit(): void {}
 
   deleteUser(user: User) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

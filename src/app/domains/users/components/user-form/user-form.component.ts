@@ -8,9 +8,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '@models/user.model';
-import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-user-form',
@@ -19,8 +18,7 @@ import { UserService } from '@services/user.service';
   styleUrl: './user-form.component.scss',
 })
 export class UserFormComponent implements OnChanges {
-  private userService = inject(UserService);
-  private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   @Input() user?: User;
   @Output() userSave = new EventEmitter<User>();
@@ -85,6 +83,11 @@ export class UserFormComponent implements OnChanges {
         is_active: this.statusCtrl.value === '1' ? true : false,
       };
       this.userSave.emit(user);
+    } else {
+      this.snackBar.open('Passwords do not match', 'Close', {
+        duration: 2000,
+        panelClass: 'snack-bar-error',
+      });
     }
     return false;
   }
