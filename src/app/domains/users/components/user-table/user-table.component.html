@@ -5,6 +5,7 @@
         <th>Id</th>
         <th>Name</th>
         <th>Email</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -14,6 +15,13 @@
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
+        <td>
+          <mat-chip-set>
+            <mat-chip [disabled]="!user.is_active">{{
+              user.is_active ? "Active" : "Inactive"
+            }}</mat-chip>
+          </mat-chip-set>
+        </td>
         <td class="space-x-1 flex py-1">
           <button
             class="flex items-center justify-center space-x-1 bg-blue-500 text-white rounded pl-1 pr-3 py-1 hover:bg-blue-700"

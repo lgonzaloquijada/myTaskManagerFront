@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { UserFormComponent } from '@domains/users/components/user-form/user-form.component';
 import { User } from '@models/user.model';
 import { UserService } from '@services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-edit',
@@ -20,6 +21,7 @@ import { UserService } from '@services/user.service';
 export class UserEditComponent implements OnChanges {
   private router = inject(Router);
   private userService = inject(UserService);
+  private snackBar = inject(MatSnackBar);
 
   @Input() id?: number;
   user?: User;
@@ -37,11 +39,16 @@ export class UserEditComponent implements OnChanges {
   onUserSave(user: User) {
     this.userService.updateUser(user).subscribe({
       next: () => {
-        alert('User updated');
+        this.snackBar.open('User updated successfully', 'Close', {
+          duration: 2000,
+        });
         this.goBack();
       },
       error: (err) => {
-        console.error(err);
+        this.snackBar.open('Error updating user', 'Close', {
+          duration: 2000,
+          panelClass: 'snack-bar-error',
+        });
       },
     });
   }

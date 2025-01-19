@@ -75,33 +75,17 @@ export class UserFormComponent implements OnChanges {
   }
 
   submit() {
-    const user = {
-      id: this.user?.id,
-      name: this.nameCtrl.value,
-      email: this.emailCtrl.value,
-      password: this.passwordCtrl.value,
-      role: this.roleCtrl.value,
-      is_active: this.statusCtrl.value === '1' ? true : false,
-    };
-    this.userSave.emit(user);
-    // if (this.passwordCtrl.value === this.passwordRepeatCtrl.value) {
-    //   let user: User = {
-    //     name: this.nameCtrl.value,
-    //     email: this.emailCtrl.value,
-    //     password: this.passwordCtrl.value,
-    //     role: this.roleCtrl.value,
-    //     is_active: this.statusCtrl.value === '1' ? true : false,
-    //   };
-    //   this.userService.addUser(user).subscribe({
-    //     next: () => {
-    //       alert('User added successfully');
-    //       this.router.navigate(['/users']);
-    //     },
-    //     error: (error) => {
-    //       alert('Error adding user');
-    //     },
-    //   });
-    // }
+    if (this.passwordCtrl.value === this.passwordRepeatCtrl.value) {
+      const user = {
+        id: this.user?.id,
+        name: this.nameCtrl.value,
+        email: this.emailCtrl.value,
+        password: this.passwordCtrl.value,
+        role: this.roleCtrl.value,
+        is_active: this.statusCtrl.value === '1' ? true : false,
+      };
+      this.userSave.emit(user);
+    }
     return false;
   }
 }

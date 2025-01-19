@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserFormComponent } from '@domains/users/components/user-form/user-form.component';
 import { User } from '@models/user.model';
@@ -14,15 +15,21 @@ import { UserService } from '@services/user.service';
 export class UserAddComponent {
   private router = inject(Router);
   private userService = inject(UserService);
+  private snackBar = inject(MatSnackBar);
 
   onUserSave(user: User) {
     this.userService.addUser(user).subscribe({
       next: () => {
-        alert('User added');
+        this.snackBar.open('User added successfully', 'Close', {
+          duration: 2000,
+        });
         this.goBack();
       },
       error: (error) => {
-        console.error('Error adding user', error);
+        this.snackBar.open('Error adding user', 'Close', {
+          duration: 2000,
+          panelClass: 'snack-bar-error',
+        });
       },
     });
   }
