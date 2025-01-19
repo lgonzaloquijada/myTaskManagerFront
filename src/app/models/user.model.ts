@@ -9,4 +9,5 @@ export interface User {
     token?: string;
     created_by?: number;
     updated_by?: number;
+    is_active?: boolean;
 }

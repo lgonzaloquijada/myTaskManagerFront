@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { UserFormComponent } from "@domains/users/components/user-form/user-form.component";
+import { UserFormComponent } from '@domains/users/components/user-form/user-form.component';
 
 @Component({
   selector: 'app-user-add',
-  imports: [UserFormComponent],
+  imports: [UserFormComponent, MatIconModule],
   templateUrl: './user-add.component.html',
   styleUrl: './user-add.component.scss',
 })

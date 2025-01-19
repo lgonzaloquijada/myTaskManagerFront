@@ -1,32 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { User } from '@models/user.model';
-import { firstValueFrom, map, Observable } from 'rxjs';
+import { firstValueFrom, map, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   private http = inject(HttpClient);
+  private api = 'http://localhost:5122/api';
 
   users: WritableSignal<User[]> = signal([]);
 
-  constructor() {}
+  constructor() {
+    this.fetchUsers();
+  }
 
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:5122/api/user');
+    return this.http.get<User[]>(`${this.api}/user`);
   }
 
-  async fetchUsers() {
-    let users = await firstValueFrom(this.getUsers());
-    this.users.set(users);
+  fetchUsers(): void {
+    this.getUsers().subscribe((users) => {
+      this.users.set(users);
+    });
   }
 
-  addUser(user: User) {
-    return this.http.post<User>('http://localhost:5122/api/user', user).pipe(
-      map((user) => {
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.api}/user`, user).pipe(
+      tap((user) => {
         this.users.update((users) => [...users, user]);
         return user;
+      })
+    );
+  }
+
+  deleteUser(user: User): Observable<void> {
+    return this.http.delete<void>(`${this.api}/user/${user.id}`).pipe(
+      tap(() => {
+        this.users.update((users) => users.filter((u) => u.id !== user.id));
       })
     );
   }

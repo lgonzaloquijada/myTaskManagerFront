@@ -1,6 +1,6 @@
 <div class="container mt-5 text-left">
   <table class="table w-full">
-    <thead>
+    <thead class="border-b border-gray-300">
       <tr>
         <th>Id</th>
         <th>Name</th>
@@ -14,18 +14,26 @@
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
-        <td class="space-x-1">
+        <td class="space-x-1 flex py-1">
           <button
-            class="bg-blue-500 text-white rounded px-2 py-1 hover:bg-blue-700"
+            class="flex items-center justify-center space-x-1 bg-blue-500 text-white rounded pl-1 pr-3 py-1 hover:bg-blue-700"
             (click)="editUser(user)"
           >
-            Edit
+            <mat-icon
+              fontIcon="edit"
+              class="leading-none text-[20px]"
+            ></mat-icon>
+            <span>Edit</span>
           </button>
           <button
-            class="bg-red-500 text-white rounded px-2 py-1 hover:bg-red-700"
+            class="flex items-center justify-center space-x-1 bg-red-500 text-white rounded pl-1 pr-3 py-1 hover:bg-red-700"
             (click)="deleteUser(user)"
           >
-            Delete
+            <mat-icon
+              fontIcon="delete"
+              class="leading-none text-[20px]"
+            ></mat-icon>
+            <span>Delete</span>
           </button>
         </td>
       </tr>

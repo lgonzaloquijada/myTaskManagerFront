@@ -4,13 +4,27 @@
       <a
         class="flex space-x-2 items-center cursor-pointer py-2"
         [ngClass]="{ 'px-3': sidebarOpen(), 'px-1': !sidebarOpen() }"
-        (click)="goToUsers()"
+        routerLink="/"
       >
-        <i class="text-white bg-blue-300 rounded-full py-1.5 px-1 text-xs"
-          >icon</i
-        >
+        <i class="text-white bg-blue-300 rounded-full py-0.5 px-1 text-xs">
+          <mat-icon fontIcon="home" aria-label="Home"></mat-icon>
+        </i>
         @if (sidebarOpen()) {
-        <span class="text-white font-bold" >Users</span>
+        <span class="text-white font-bold">Home</span>
+        }
+      </a>
+    </li>
+    <li class="hover:bg-gray-400">
+      <a
+        class="flex space-x-2 items-center cursor-pointer py-2"
+        [ngClass]="{ 'px-3': sidebarOpen(), 'px-1': !sidebarOpen() }"
+        routerLink="/users"
+      >
+        <i class="text-white bg-blue-300 rounded-full py-0.5 px-1 text-xs">
+          <mat-icon fontIcon="group"></mat-icon>
+        </i>
+        @if (sidebarOpen()) {
+        <span class="text-white font-bold">Users</span>
         }
       </a>
     </li>
