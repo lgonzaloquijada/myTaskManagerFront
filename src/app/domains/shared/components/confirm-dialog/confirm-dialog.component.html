@@ -1,0 +1,18 @@
+<h1 class="text-lg mx-auto pt-2 font-bold">{{ data.title }}</h1>
+<div mat-dialog-content>
+  <p>{{ data.message }}</p>
+</div>
+<div class="flex justify-end space-x-3" mat-dialog-actions>
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold pl-2 pr-3 py-2 rounded"
+    (click)="onConfirm()"
+  >
+    {{ data.confirmText }}
+  </button>
+  <button
+    class="bg-red-500 hover:bg-red-700 text-white font-bold pl-2 pr-3 py-2 rounded"
+    (click)="onCancel()"
+  >
+    {{ data.cancelText }}
+  </button>
+</div>

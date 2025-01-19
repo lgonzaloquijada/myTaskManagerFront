@@ -30,7 +30,11 @@ export class UserFormComponent {
     nonNullable: true,
     validators: [Validators.required],
   });
-  roleCtrl = new FormControl('', {
+  roleCtrl = new FormControl('user', {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
+  statusCtrl = new FormControl('1', {
     nonNullable: true,
     validators: [Validators.required],
   });
@@ -43,6 +47,7 @@ export class UserFormComponent {
         email: this.emailCtrl.value,
         password: this.passwordCtrl.value,
         role: this.roleCtrl.value,
+        is_active: this.statusCtrl.value === '1' ? true : false,
       };
       this.userService.addUser(user).subscribe({
         next: () => {
