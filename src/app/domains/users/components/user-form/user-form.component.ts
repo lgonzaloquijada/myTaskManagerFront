@@ -1,8 +1,15 @@
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '@models/user.model';
-import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-user-form',
@@ -10,9 +17,11 @@ import { UserService } from '@services/user.service';
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss',
 })
-export class UserFormComponent {
-  private userService = inject(UserService);
-  private router = inject(Router);
+export class UserFormComponent implements OnChanges {
+  private snackBar = inject(MatSnackBar);
+
+  @Input() user?: User;
+  @Output() userSave = new EventEmitter<User>();
 
   nameCtrl = new FormControl('', {
     nonNullable: true,
@@ -39,24 +48,45 @@ export class UserFormComponent {
     validators: [Validators.required],
   });
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['user']) {
+      this.updateForm();
+    }
+  }
+
+  updateForm() {
+    if (!this.user) {
+      this.user = {
+        name: '',
+        email: '',
+        password: '',
+        role: 'user',
+        is_active: true,
+      };
+    }
+    this.nameCtrl.setValue(this.user.name);
+    this.emailCtrl.setValue(this.user.email);
+    this.passwordCtrl.setValue(this.user.password);
+    this.passwordRepeatCtrl.setValue(this.user.password);
+    this.roleCtrl.setValue(this.user.role);
+    this.statusCtrl.setValue(this.user.is_active ? '1' : '0');
+  }
+
   submit() {
-    this.nameCtrl.markAsTouched();
     if (this.passwordCtrl.value === this.passwordRepeatCtrl.value) {
-      let user: User = {
+      const user = {
+        id: this.user?.id,
         name: this.nameCtrl.value,
         email: this.emailCtrl.value,
         password: this.passwordCtrl.value,
         role: this.roleCtrl.value,
         is_active: this.statusCtrl.value === '1' ? true : false,
       };
-      this.userService.addUser(user).subscribe({
-        next: () => {
-          alert('User added successfully');
-          this.router.navigate(['/users']);
-        },
-        error: (error) => {
-          alert('Error adding user');
-        },
+      this.userSave.emit(user);
+    } else {
+      this.snackBar.open('Passwords do not match', 'Close', {
+        duration: 2000,
+        panelClass: 'snack-bar-error',
       });
     }
     return false;
