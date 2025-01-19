@@ -1,12 +1,12 @@
 export interface User {
-    id: number;
+    id?: number;
     name: string;
     email: string;
+    password: string;
     role: string;
-    createdAt: string;
-    updatedAt: string;
-    token: string;
-    token_expires_at: string;
-    createdBy: number;
-    updatedBy: number;
+    created_at?: string;
+    updated_at?: string;
+    token?: string;
+    created_by?: number;
+    updated_by?: number;
 }
