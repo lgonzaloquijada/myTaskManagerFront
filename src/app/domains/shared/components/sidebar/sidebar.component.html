@@ -4,12 +4,13 @@
       <a
         class="flex space-x-2 items-center cursor-pointer py-2"
         [ngClass]="{ 'px-3': sidebarOpen(), 'px-1': !sidebarOpen() }"
+        (click)="goToUsers()"
       >
         <i class="text-white bg-blue-300 rounded-full py-1.5 px-1 text-xs"
           >icon</i
         >
         @if (sidebarOpen()) {
-        <span class="text-white font-bold">Users</span>
+        <span class="text-white font-bold" >Users</span>
         }
       </a>
     </li>

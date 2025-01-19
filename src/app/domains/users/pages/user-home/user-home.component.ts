@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserTableComponent } from '@domains/users/components/user-table/user-table.component';
 import { UserService } from '@services/user.service';
 
@@ -10,6 +11,7 @@ import { UserService } from '@services/user.service';
 })
 export class UserHomeComponent implements OnInit {
   private userService = inject(UserService);
+  private router = inject(Router);
 
   constructor() {}
 
@@ -18,6 +20,6 @@ export class UserHomeComponent implements OnInit {
   }
 
   addUser() {
-    console.log('Add user');
+    this.router.navigate(['/users/add']);
   }
 }
