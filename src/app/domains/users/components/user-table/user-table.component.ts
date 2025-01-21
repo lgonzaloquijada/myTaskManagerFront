@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-table',
@@ -25,6 +26,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
     MatChipsModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
   ],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.scss',
@@ -42,6 +44,7 @@ export class UserTableComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<User>([]);
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild(MatSort) sort?: MatSort;
 
   constructor() {
     effect(() => {
@@ -56,18 +59,16 @@ export class UserTableComponent implements AfterViewInit {
     effect(() => {
       const users = this.userService.users();
       this.dataSource.data = users;
-
-      if (this.paginator) {
-        this.paginator!.length = users.length;
-      }
     });
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator!;
+    if (this.paginator) {
+      this.dataSource.paginator = this.paginator;
+    }
 
-    if (this.paginator && this.dataSource.data.length > 0) {
-      this.paginator.length = this.dataSource.data.length;
+    if (this.sort) {
+      this.dataSource.sort = this.sort;
     }
   }
 
