@@ -1,10 +1,9 @@
 import {
+  AfterViewInit,
   Component,
   effect,
   inject,
-  OnInit,
   ViewChild,
-  viewChild,
   WritableSignal,
 } from '@angular/core';
 import { UserService } from '@services/user.service';
@@ -30,7 +29,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.scss',
 })
-export class UserTableComponent implements OnInit {
+export class UserTableComponent implements AfterViewInit {
   private userService = inject(UserService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
@@ -40,7 +39,9 @@ export class UserTableComponent implements OnInit {
     this.userService.errorFetchingUsers;
 
   displayedColumns: string[] = ['id', 'name', 'email', 'status', 'actions'];
-  dataSource = new MatTableDataSource(this.users());
+  dataSource = new MatTableDataSource<User>([]);
+
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
 
   constructor() {
     effect(() => {
@@ -55,10 +56,20 @@ export class UserTableComponent implements OnInit {
     effect(() => {
       const users = this.userService.users();
       this.dataSource.data = users;
+
+      if (this.paginator) {
+        this.paginator!.length = users.length;
+      }
     });
   }
 
-  ngOnInit(): void {}
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator!;
+
+    if (this.paginator && this.dataSource.data.length > 0) {
+      this.paginator.length = this.dataSource.data.length;
+    }
+  }
 
   deleteUser(user: User) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
