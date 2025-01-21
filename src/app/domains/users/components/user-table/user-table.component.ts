@@ -17,6 +17,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-user-table',
@@ -27,6 +28,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatButtonModule,
   ],
   templateUrl: './user-table.component.html',
   styleUrl: './user-table.component.scss',
