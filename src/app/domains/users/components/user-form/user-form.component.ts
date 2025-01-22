@@ -104,10 +104,7 @@ export class UserFormComponent implements OnInit, OnChanges {
   }
 
   submit() {
-    if (
-      this.form.controls.password.value ===
-      this.form.controls.passwordRepeat.value
-    ) {
+    if (this.form.valid) {
       const user: User = {
         id: this.user?.id,
         name: this.form.controls.name.value ?? '',
@@ -118,8 +115,9 @@ export class UserFormComponent implements OnInit, OnChanges {
       };
       this.userSave.emit(user);
     } else {
-      this.snackBar.open('Passwords do not match', 'Close', {
-        duration: 2000,
+      this.form.markAllAsTouched();
+      this.snackBar.open('Please check input validations', 'Close', {
+        duration: 4000,
         panelClass: 'snack-bar-error',
       });
     }
