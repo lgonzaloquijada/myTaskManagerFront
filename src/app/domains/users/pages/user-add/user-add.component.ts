@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -8,7 +9,7 @@ import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-user-add',
-  imports: [UserFormComponent, MatIconModule],
+  imports: [UserFormComponent, MatIconModule, MatButtonModule],
   templateUrl: './user-add.component.html',
   styleUrl: './user-add.component.scss',
 })

@@ -1,15 +1,12 @@
 <div class="px-5 py-5">
   <div class="flex justify-between">
     <h1 class="text-2xl font-bold flex items-center space-x-3">
-      <mat-icon fontIcon="person"></mat-icon>
+      <mat-icon>person</mat-icon>
       <span>Users</span>
     </h1>
-    <button
-      class="flex space-x-1 bg-blue-500 hover:bg-blue-700 text-white font-bold pl-2 pr-3 py-2 rounded"
-      (click)="addUser()"
-    >
-      <mat-icon class="text-[22px] !w-[22px] !h-[22px]">add</mat-icon>
-      <span>Add User</span>
+    <button mat-flat-button color="primary" routerLink="/users/add">
+      <mat-icon>add</mat-icon>
+      Add User
     </button>
   </div>
   <app-user-table></app-user-table>
