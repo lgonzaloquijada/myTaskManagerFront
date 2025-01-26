@@ -5,6 +5,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { AppService } from '../../../../services/app.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-layout',
@@ -14,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
     SidebarComponent,
     CommonModule,
     MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
