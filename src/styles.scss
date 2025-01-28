@@ -11,20 +11,32 @@ body {
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 //Customize the entire app. Change :root to your selector if you want to scope the styles.
-:root .snack-bar-success {
-  @include mat.snack-bar-overrides(
+:root {
+  .snack-bar-success {
+    @include mat.snack-bar-overrides(
+      (
+        container-color: rgb(34 197 94 / var(--tw-bg-opacity, 1)),
+        supporting-text-color: white,
+      )
+    );
+  }
+  .snack-bar-error {
+    @include mat.snack-bar-overrides(
+      (
+        container-color: rgb(239 68 68 / var(--tw-bg-opacity, 1)),
+        supporting-text-color: white,
+      )
+    );
+  }
+
+  @include mat.form-field-overrides(
     (
-      container-color: rgb(34 197 94 / var(--tw-bg-opacity, 1)),
-      supporting-text-color: white,
+      container-height: 40px,
+      container-vertical-padding: 10px,
     )
   );
 }
 
-:root .snack-bar-error {
-  @include mat.snack-bar-overrides(
-    (
-      container-color: rgb(239 68 68 / var(--tw-bg-opacity, 1)),
-      supporting-text-color: white,
-    )
-  );
+.mdc-notched-outline__notch {
+  border-right: none;
 }
