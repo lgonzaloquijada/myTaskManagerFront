@@ -4,11 +4,18 @@ import { LayoutComponent } from '@domains/shared/layouts/layout/layout.component
 import { UserAddComponent } from '@domains/users/pages/user-add/user-add.component';
 import { HomeComponent } from '@domains/home/pages/home/home.component';
 import { UserEditComponent } from '@domains/users/pages/user-edit/user-edit.component';
+import { LoginComponent } from '@domains/auth/pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'auth/login',
+    component: LoginComponent,
+  },
+  {
     path: '',
     component: LayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
