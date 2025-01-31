@@ -7,11 +7,13 @@ import { UserEditComponent } from '@domains/users/pages/user-edit/user-edit.comp
 import { LoginComponent } from '@domains/auth/pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { AuthLayoutComponent } from '@domains/shared/layouts/auth-layout/auth-layout.component';
+import { loguedGuard } from './guards/logued.guard';
 
 export const routes: Routes = [
   {
     path: 'auth',
     component: AuthLayoutComponent,
+    canActivate: [loguedGuard],
     children: [
       {
         path: 'login',

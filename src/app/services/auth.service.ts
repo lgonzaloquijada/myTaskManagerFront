@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { environment } from '@environments/environment';
-import { User } from '@models/user.model';
-import { map } from 'rxjs';
+import { tap } from 'rxjs';
 import { TokenService } from '@services/token.service';
 import { Profile } from '@models/profile.model';
 
@@ -22,11 +21,16 @@ export class AuthService {
     return this.http
       .post<Profile>(`${this.apiUrl}/auth/login`, { email, password })
       .pipe(
-        map((response: Profile) => {
+        tap((response: Profile) => {
           this.setUser(response);
           return response;
         })
       );
+  }
+
+  logout() {
+    this.user.set(null);
+    this.tokenService.deleteToken();
   }
 
   private setUser(user: Profile) {
