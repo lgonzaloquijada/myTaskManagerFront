@@ -6,11 +6,18 @@ import { HomeComponent } from '@domains/home/pages/home/home.component';
 import { UserEditComponent } from '@domains/users/pages/user-edit/user-edit.component';
 import { LoginComponent } from '@domains/auth/pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { AuthLayoutComponent } from '@domains/shared/layouts/auth-layout/auth-layout.component';
 
 export const routes: Routes = [
   {
-    path: 'auth/login',
-    component: LoginComponent,
+    path: 'auth',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent,
+      },
+    ],
   },
   {
     path: '',

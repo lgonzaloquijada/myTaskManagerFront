@@ -1,1 +1,27 @@
-<p>login works!</p>
+<div
+  class="container w-4/12 mx-auto bg-white py-5 text-gray-700 rounded shadow"
+>
+  <h1 class="text-2xl font-bold text-center">Login</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <div class="flex flex-col space-y-2 py-5 px-20">
+      <mat-form-field appearance="outline" class="small">
+        <mat-label>Email:</mat-label>
+        <input matInput type="email" formControlName="email" />
+        @if(loginForm.controls.email.hasError('required')){
+        <mat-error>Email is required.</mat-error>
+        } @else if(loginForm.controls.email.hasError('email')){
+        <mat-error>Invalid email.</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="small">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" />
+        @if(loginForm.controls.password.hasError('required')){
+        <mat-error>Password is required.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <button mat-flat-button class="mx-auto !block !px-10">Login</button>
+  </form>
+</div>
