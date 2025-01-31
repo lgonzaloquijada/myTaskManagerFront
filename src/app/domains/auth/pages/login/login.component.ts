@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,6 +8,8 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +18,11 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  formBuilder = inject(FormBuilder);
+  private autService = inject(AuthService);
+  private formBuilder = inject(FormBuilder);
+  private router = inject(Router);
 
+  errorText = signal('');
   loginForm = this.formBuilder.group({
     email: new FormControl('', {
       nonNullable: true,
@@ -31,5 +36,26 @@ export class LoginComponent {
 
   constructor() {}
 
-  submitLogin() {}
+  submitLogin() {
+    console.log('submitLogin');
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
+
+    this.autService
+      .login(
+        this.loginForm.controls.email.value,
+        this.loginForm.controls.password.value
+      )
+      .subscribe({
+        next: () => {
+          this.errorText.set('');
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.errorText.set(error.error);
+        },
+      });
+  }
 }

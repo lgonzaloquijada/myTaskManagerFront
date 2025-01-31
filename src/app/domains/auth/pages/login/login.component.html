@@ -20,8 +20,11 @@
         <mat-error>Password is required.</mat-error>
         }
       </mat-form-field>
-    </div>
 
-    <button mat-flat-button class="mx-auto !block !px-10">Login</button>
+      @if(errorText() !== ''){
+      <label class="text-red-500">{{ errorText() }}</label>
+      }
+      <button mat-flat-button class="mx-auto !block !px-10">Login</button>
+    </div>
   </form>
 </div>
