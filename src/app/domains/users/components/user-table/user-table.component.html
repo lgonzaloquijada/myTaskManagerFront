@@ -1,4 +1,4 @@
-<div class="container mt-5 text-left">
+<div class="mt-5 text-left">
   <table mat-table [dataSource]="dataSource" matSort>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr
@@ -83,7 +83,7 @@
   </table>
 
   <mat-paginator
-    [pageSizeOptions]="[10,20]"
+    [pageSizeOptions]="[10, 20]"
     showFirstLastButtons
     aria-label="Select page of periodic elements"
   >
