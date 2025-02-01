@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
+import { environment } from '@environments/environment';
 import { User } from '@models/user.model';
 import { catchError, Observable, tap } from 'rxjs';
 
@@ -8,7 +9,7 @@ import { catchError, Observable, tap } from 'rxjs';
 })
 export class UserService {
   private http = inject(HttpClient);
-  private api = 'http://localhost:5122/api';
+  private api = environment.apiUrl;
 
   users: WritableSignal<User[]> = signal([]);
   errorFetchingUsers: WritableSignal<boolean> = signal(false);
